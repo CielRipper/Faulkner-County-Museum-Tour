@@ -74,5 +74,5 @@ To be written by Jack.
 By committing our name and a date below, we agree to follow this contract.
 
 - Jaxon Treadwell — Date: 10/21/2026
-- Collin Ussery — Date:
+- Collin Ussery — Date: 10/21/2026
 - Jack Snell — Date:
