@@ -63,7 +63,7 @@ At the start of the project, my main roles are Task Manager and Client Interface
 
 ### Collin Ussery
 
-To be written by Collin.
+I’ll be handling integration testing and organizing our beta test. For integration testing, I'll make sure the different parts of the app work together correctly once they’re connected, like the screens connecting to the backend and data being saved and loaded the way it should. Once the app is far enough along, I’ll manage beta testing keeping track of what breaks or feels off, and reporting it back to the team as GitHub issues. I will also help build the screens/widgets as well as wherever else my help is needed.
 
 ### Jack Snell
 
