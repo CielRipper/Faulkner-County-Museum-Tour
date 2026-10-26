@@ -67,7 +67,7 @@ I’ll be handling integration testing and organizing our beta test. For integra
 
 ### Jack Snell
 
-To be written by Jack.
+I will be writing the backend data structures and the systems that push and pull them to Firebase. This will include a local storage interface that will keep data stored in a practical and convenient way for other team members. This database work will include incorporation of Fireauth and the relevant UI needed to allow users to sign up and login. I will also be writing several unit tests and ensuring that unit tests are written properly and as often as needed.
 
 ## Signatures
 
@@ -75,4 +75,4 @@ By committing our name and a date below, we agree to follow this contract.
 
 - Jaxon Treadwell — Date: 10/21/2026
 - Collin Ussery — Date: 10/21/2026
-- Jack Snell — Date:
+- Jack Snell — Date: 10/26/2026
