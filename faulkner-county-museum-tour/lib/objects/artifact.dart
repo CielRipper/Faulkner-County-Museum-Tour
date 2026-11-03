@@ -30,7 +30,7 @@ class Artifact{
         return false;
     }
     else{
-        newRoom.artifacts[name] = this;
+        newRoom.artifacts.add(name);
         return true;
     }
   }

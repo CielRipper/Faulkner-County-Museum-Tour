@@ -11,5 +11,32 @@ class Data{
   Map<String, Artifact> artifacts;
   Map<String, Room> rooms;
 
+  bool createRoom(String name){
+    if(rooms.containsKey(name)){
+      return false;
+    }
+    rooms[name] = Room(name: name);
+    return true;
+  }
 
+  bool createArtifact(String name, String description, String room){
+    if(artifacts.containsKey(name)){
+      return false;
+    }
+    artifacts[name] = Artifact(name: name, description: description, room: room);
+    if(!rooms.containsKey(room)){
+      createRoom(room);
+    }
+    rooms[room]!.addArtifact(name);
+    return true;
+  }
+
+  void dumpTestData(){
+    createArtifact("Painting", "Painted with oil and acrylic", "Foyer");
+    createArtifact("Painting 2", "Painted with tempera", "Foyer");
+    createArtifact("Model Train", "Diorama of figures and landscape", "Train Room");
+    createArtifact("Student Desk", "Used for classwork", "Classroom");
+    createArtifact("Student Chair", "Mass-produced historic chair", "Classroom");
+    createArtifact("Chalkboard", "Home to many cool S depictions", "Classroom");
+  }
 }
