@@ -35,4 +35,14 @@ void main() {
     expect(Storage.data.artifactsOfRoom("Classroom").length, 4);
     expect(Storage.data.roomOfArtifact("Podium")!.name, "Classroom");
   });
+  testWidgets('Room destruction removes room and unassigns its artifacts', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.destroyRoom("Classroom");
+
+    expect(Storage.data.rooms.containsKey("Classroom"), false);
+    expect(Storage.data.roomOfArtifact("Student Desk")!.name, "Unassigned");
+  });
 }

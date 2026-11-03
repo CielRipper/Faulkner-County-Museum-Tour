@@ -11,26 +11,28 @@ class Data{
   Map<String, Artifact> artifacts;
   Map<String, Room> rooms;
 
-  bool createRoom(String name){
+  Room? createRoom(String name){
     if(rooms.containsKey(name)){
-      return false;
+      return null;
     }
     rooms[name] = Room(name: name);
-    return true;
+    return rooms[name];
   }
 
-  bool createArtifact(String name, String description, String? room){
+  Artifact? createArtifact(String name, String description, String? room){
     if(artifacts.containsKey(name)){
-      return false;
+      return null;
     }
     artifacts[name] = Artifact(name: name, description: description, room: room??"Unassigned");
     if(room != null){
       if(!rooms.containsKey(room)){
         createRoom(room);
       }
+    } else if(!rooms.containsKey("Unassigned")){
+      createRoom("Unassigned");
     }
-    rooms[room]!.addArtifact(name);
-    return true;
+    rooms[room ?? "Unassigned"]!.addArtifact(name);
+    return artifacts[name];
   }
 
   List<Artifact> artifactsOfRoom(String roomName){
@@ -46,6 +48,23 @@ class Data{
     }
     else{
       return null;
+    }
+  }
+  
+  bool destroyRoom(String roomName){
+    if(rooms.containsKey(roomName)){
+      List<Artifact> artifactsToMove = [];
+      for (String artifactName in rooms[roomName]!.artifacts){
+        artifactsToMove.add(artifacts[artifactName]!);
+      }
+      for(Artifact movingArtifact in artifactsToMove){
+        movingArtifact.moveTo("Unassigned");
+      }
+      rooms.remove(roomName);
+      return true;
+    }
+    else{
+      return false;
     }
   }
 

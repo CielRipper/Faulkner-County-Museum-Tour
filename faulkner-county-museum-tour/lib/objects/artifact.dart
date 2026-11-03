@@ -6,33 +6,24 @@ class Artifact{
 
   final String name;
   final String description;
-  final String room;
+  String room;
 
-  bool moveTo(String newRoomID){
-    bool removed = removeFrom(room);
-    bool added = addTo(newRoomID);
-    return removed && added;
+  void moveTo(String newRoomID){
+    removeFrom(room);
+    addTo(newRoomID);
+    room = newRoomID;
   }
 
-  bool removeFrom(String oldRoomID){
-    Room? oldRoom = Storage.data.rooms[oldRoomID];
-    if(oldRoom?.artifacts.remove(name) == null){
-        return false;
-    }
-    else{
-        return true;
-    }
+  removeFrom(String oldRoomID){
+    Storage.data.rooms[oldRoomID]?.artifacts.remove(name);
+    addTo("Unassigned");
   }
 
-  bool addTo(String newRoomID){
+  void addTo(String newRoomID){
     Room? newRoom = Storage.data.rooms[newRoomID];
-    if(newRoom == null){
-        return false;
-    }
-    else{
-        newRoom.artifacts.add(name);
-        return true;
-    }
+    newRoom ??= Storage.data.createRoom(newRoomID);
+    newRoom!.artifacts.add(name);
+    room = newRoomID;
   }
 
 }
