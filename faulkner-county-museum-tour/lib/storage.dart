@@ -31,6 +31,22 @@ class Data{
     return true;
   }
 
+  List<Artifact> artifactsOfRoom(String roomName){
+    if(rooms.containsKey(roomName)){
+      return [for (String n in rooms[roomName]!.artifacts) artifacts[n]!];
+    }
+    return [];
+  }
+
+  Room? roomOfArtifact(String artifactName){
+    if(artifacts.containsKey(artifactName)){
+      return rooms[artifacts[artifactName]!.room]!;
+    }
+    else{
+      return null; 
+    }
+  }
+
   void dumpTestData(){
     createArtifact("Painting", "Painted with oil and acrylic", "Foyer");
     createArtifact("Painting 2", "Painted with tempera", "Foyer");
