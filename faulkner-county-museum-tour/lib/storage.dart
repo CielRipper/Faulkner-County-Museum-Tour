@@ -19,13 +19,15 @@ class Data{
     return true;
   }
 
-  bool createArtifact(String name, String description, String room){
+  bool createArtifact(String name, String description, String? room){
     if(artifacts.containsKey(name)){
       return false;
     }
-    artifacts[name] = Artifact(name: name, description: description, room: room);
-    if(!rooms.containsKey(room)){
-      createRoom(room);
+    artifacts[name] = Artifact(name: name, description: description, room: room??"Unassigned");
+    if(room != null){
+      if(!rooms.containsKey(room)){
+        createRoom(room);
+      }
     }
     rooms[room]!.addArtifact(name);
     return true;
@@ -43,11 +45,13 @@ class Data{
       return rooms[artifacts[artifactName]!.room]!;
     }
     else{
-      return null; 
+      return null;
     }
   }
 
   void dumpTestData(){
+    rooms = {};
+    artifacts = {};
     createArtifact("Painting", "Painted with oil and acrylic", "Foyer");
     createArtifact("Painting 2", "Painted with tempera", "Foyer");
     createArtifact("Model Train", "Diorama of figures and landscape", "Train Room");

@@ -11,6 +11,28 @@ void main() {
 
     Storage.data.dumpTestData();
 
-    expect(Storage.data.artifacts.length == 6, true);
+    expect(Storage.data.artifacts.length, 6);
+    expect(Storage.data.rooms.length, 3);
+  });
+  testWidgets('Creating artifact correctly augments lists', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.createArtifact("Pencil", "Made with lead and wood", "Classroom");
+    Storage.data.createArtifact("Tool Display", "Various historic tools on the wall", "Hallway");
+
+    expect(Storage.data.artifacts.length, 8);
+    expect(Storage.data.rooms.length, 4);
+  });
+  testWidgets('Relative getters work in either direction', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.createArtifact("Podium", "Large speaking podium for a teacher", "Classroom");
+
+    expect(Storage.data.artifactsOfRoom("Classroom").length, 4);
+    expect(Storage.data.roomOfArtifact("Podium")!.name, "Classroom");
   });
 }
