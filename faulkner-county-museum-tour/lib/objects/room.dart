@@ -1,26 +1,19 @@
-import 'artifact.dart';
+import 'package:flutter_application_1/objects/artifact.dart';
 
-/// A room in the museum (or a virtual room) holding artifacts.
-/// Placeholder model until Jack's backend data structures are ready.
-class Room {
-  const Room({
-    required this.id,
-    required this.name,
-    this.description = '',
-    this.imagePath,
-    this.artifacts = const [],
-    this.isVirtual = false,
-  });
+class Room{
 
-  final String id;
+  Room({required this.name}): artifacts = [];
+
   final String name;
-  final String description;
-  
-  /// No asset paths for now.
-  /// null shows a placeholder.
-  final String? imagePath;
-  final List<Artifact> artifacts;
+  final List<String> artifacts; // order matters here, as it will define the path 
 
-  /// Virtual rooms aren't physically in the museum but can still be viewed.
-  final bool isVirtual;
+  bool addArtifact(String artifactName){
+    if(artifacts.contains(artifactName)){
+        return false;
+    }
+    else{
+        artifacts.add(artifactName);
+        return true;
+    }   
+  }
 }

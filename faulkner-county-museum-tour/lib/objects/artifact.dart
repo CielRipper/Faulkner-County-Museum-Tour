@@ -1,26 +1,29 @@
-/// A single item on display in the museum.
-/// Placeholder model until Jack's backend data structures are ready.
-class Artifact {
-  const Artifact({
-    required this.id,
-    required this.name,
-    required this.description,
-    this.exhibitNumber,
-    this.imagePaths = const [],
-    this.isImportant = false,
-  });
+import 'package:flutter_application_1/objects/room.dart';
+import 'package:flutter_application_1/storage.dart';
 
-  final String id;
+class Artifact{
+  Artifact({required this.name, required this.description, required this.room});
+
   final String name;
   final String description;
+  String room;
 
-  /// Number visitors can type on the keypad screen.
-  final int? exhibitNumber;
+  void moveTo(String newRoomID){
+    removeFrom(room);
+    addTo(newRoomID);
+    room = newRoomID;
+  }
 
-  /// No asset paths for now.
-  /// An empty list shows placeholder boxes.
-  final List<String> imagePaths;
+  removeFrom(String oldRoomID){
+    Storage.data.rooms[oldRoomID]?.artifacts.remove(name);
+    addTo("Unassigned");
+  }
 
-  /// Important artifacts get a "Featured" badge.
-  final bool isImportant;
+  void addTo(String newRoomID){
+    Room? newRoom = Storage.data.rooms[newRoomID];
+    newRoom ??= Storage.data.createRoom(newRoomID);
+    newRoom!.artifacts.add(name);
+    room = newRoomID;
+  }
+
 }
