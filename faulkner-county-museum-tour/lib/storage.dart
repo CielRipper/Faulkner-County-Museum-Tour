@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/objects/artifact.dart';
-import 'package:flutter_application_1/objects/room.dart';
+import 'package:faulkner_county_museum_tour/objects/artifact.dart';
+import 'package:faulkner_county_museum_tour/objects/room.dart';
 
 class Storage{
   static Data data = Data();

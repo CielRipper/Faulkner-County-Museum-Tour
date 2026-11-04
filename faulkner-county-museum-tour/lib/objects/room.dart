@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/objects/artifact.dart';
+import 'package:faulkner_county_museum_tour/objects/artifact.dart';
 
 class Room{
 

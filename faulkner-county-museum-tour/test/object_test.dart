@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/storage.dart';
+import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_application_1/main.dart';
+import 'package:faulkner_county_museum_tour/main.dart';
 
 void main() {
   testWidgets('Dumping test data adds values correctly', (WidgetTester tester) async {
