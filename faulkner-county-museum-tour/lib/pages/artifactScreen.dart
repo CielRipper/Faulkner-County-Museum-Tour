@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
+import 'package:faulkner_county_museum_tour/widgets/artifactPopup.dart';
 import 'package:faulkner_county_museum_tour/widgets/museumWidgets.dart';
 
 /// List of artifacts in the room that was tapped.
@@ -30,7 +31,7 @@ class ArtifactScreen extends StatelessWidget {
               title: Text(artifact.name),
               trailing: const Icon(Icons.chevron_right, color: MuseumColors.green),
               onTap: () {
-                // TODO: open popup (#9)
+                showArtifactPopup(context, artifact);
               },
             ),
           );
