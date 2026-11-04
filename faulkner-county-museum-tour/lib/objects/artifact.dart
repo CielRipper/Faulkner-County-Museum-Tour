@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/objects/room.dart';
-import 'package:flutter_application_1/storage.dart';
+import 'package:faulkner_county_museum_tour/objects/room.dart';
+import 'package:faulkner_county_museum_tour/storage.dart';
 
 class Artifact{
   Artifact({required this.name, required this.description, required this.room});

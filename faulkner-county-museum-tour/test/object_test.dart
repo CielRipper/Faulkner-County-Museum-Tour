@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/storage.dart';
+import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_application_1/main.dart';
+import 'package:faulkner_county_museum_tour/main.dart';
 
 void main() {
   testWidgets('Dumping test data adds values correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MuseumTourApp());
 
     Storage.data.dumpTestData();
 
@@ -16,7 +16,7 @@ void main() {
   });
   testWidgets('Creating artifact correctly augments lists', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MuseumTourApp());
 
     Storage.data.dumpTestData();
     Storage.data.createArtifact("Pencil", "Made with lead and wood", "Classroom");
@@ -27,7 +27,7 @@ void main() {
   });
   testWidgets('Relative getters work in either direction', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MuseumTourApp());
 
     Storage.data.dumpTestData();
     Storage.data.createArtifact("Podium", "Large speaking podium for a teacher", "Classroom");
@@ -37,7 +37,7 @@ void main() {
   });
   testWidgets('Room destruction removes room and unassigns its artifacts', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MuseumTourApp());
 
     Storage.data.dumpTestData();
     Storage.data.destroyRoom("Classroom");
