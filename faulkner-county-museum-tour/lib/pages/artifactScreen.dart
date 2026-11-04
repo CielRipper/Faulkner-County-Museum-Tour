@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
+import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
 import 'package:faulkner_county_museum_tour/widgets/artifactPopup.dart';
 import 'package:faulkner_county_museum_tour/widgets/museumWidgets.dart';
@@ -12,7 +13,8 @@ class ArtifactScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final artifacts = room.artifacts;
+    /// Room only stores artifact names, so get the full artifacts from Storage.
+    final artifacts = Storage.data.artifactsOfRoom(room.name);
 
     Widget body;
     if (artifacts.isEmpty) {

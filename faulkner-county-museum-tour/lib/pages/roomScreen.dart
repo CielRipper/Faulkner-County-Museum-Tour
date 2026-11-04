@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
-import 'package:faulkner_county_museum_tour/objects/sampleData.dart';
+import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
 import 'package:faulkner_county_museum_tour/widgets/museumWidgets.dart';
 import 'package:faulkner_county_museum_tour/pages/artifactScreen.dart';
@@ -8,12 +8,15 @@ import 'package:faulkner_county_museum_tour/pages/artifactScreen.dart';
 /// Home screen: a list of rooms.
 /// Tapping a room opens its artifacts.
 class RoomScreen extends StatelessWidget {
-  const RoomScreen({super.key, this.rooms = sampleRooms});
-
-  final List<Room> rooms;
+  const RoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    /// Rooms come from Jack's Storage. "Unassigned" is a backend holding room for artifacts with no room, so visitors don't see it.
+    final List<Room> rooms = Storage.data.rooms.values
+        .where((room) => room.name != 'Unassigned')
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Faulkner County Museum')
@@ -39,7 +42,6 @@ class RoomScreen extends StatelessWidget {
   }
 }
 
-
 /// A room shown like a Facebook post card: photo on top, name below.
 class _RoomCard extends StatelessWidget {
   const _RoomCard({required this.room, required this.onTap});
@@ -58,18 +60,14 @@ class _RoomCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MuseumImage(path: room.imagePath, height: 140, iconSize: 48),
+            /// Placeholder until we have room photos.
+            const MuseumImage(height: 140, iconSize: 48),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
               child: Row(
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(room.name, style: text.titleMedium),
-                      ],
-                    ),
+                    child: Text(room.name, style: text.titleMedium),
                   ),
                   const Icon(Icons.chevron_right, color: MuseumColors.green),
                 ],
