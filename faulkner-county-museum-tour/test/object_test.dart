@@ -45,4 +45,25 @@ void main() {
     expect(Storage.data.rooms.containsKey("Classroom"), false);
     expect(Storage.data.roomOfArtifact("Student Desk")!.name, "Unassigned");
   });
+  testWidgets('Reference assigning augments artifactsByRef', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MuseumTourApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.assignReference(Storage.data.artifacts["Painting"]!, 123);
+    Storage.data.assignReference(Storage.data.artifacts["Model Train"]!, 456);
+
+    expect(Storage.data.artifactsByRef.length, 2);
+  });
+  testWidgets('Reference assigning adds reference to artifacts', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MuseumTourApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.assignReference(Storage.data.artifacts["Painting"]!, 123);
+    Storage.data.assignReference(Storage.data.artifacts["Model Train"]!, 456);
+
+    expect(Storage.data.artifacts["Painting"]!.ref, 123);
+    expect(Storage.data.artifacts["Model Train"]!.ref, 456);
+  });
 }

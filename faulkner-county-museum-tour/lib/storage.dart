@@ -83,6 +83,7 @@ class Data{
       removeReference(ref: ref);
     }
     artifactsByRef[ref] = artifact;
+    artifact.ref = ref;
   }
   void removeReference({Artifact? artifact, int? ref}){
     if(artifact != null && artifactsByRef.containsKey(artifact.ref)){
