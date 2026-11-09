@@ -105,4 +105,25 @@ void main() {
     expect(Storage.data.artifacts["Painting"]!.ref, null);
     expect(Storage.data.artifacts["Model Train"]!.ref, null);
   });
+  testWidgets('Overriding reference changes getter output', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MuseumTourApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.assignReference(Storage.data.artifacts["Painting"]!, 123);
+    Storage.data.assignReference(Storage.data.artifacts["Model Train"]!, 123);
+
+    expect(Storage.data.artifactsByRef[123], Storage.data.artifacts["Model Train"]);
+  });
+  testWidgets('Overriding reference changes Artifact data', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MuseumTourApp());
+
+    Storage.data.dumpTestData();
+    Storage.data.assignReference(Storage.data.artifacts["Painting"]!, 123);
+    Storage.data.assignReference(Storage.data.artifacts["Model Train"]!, 123);
+
+    expect(Storage.data.artifacts["Painting"]!.ref, null);
+    expect(Storage.data.artifacts["Model Train"]!.ref, 123);
+  });
 }
