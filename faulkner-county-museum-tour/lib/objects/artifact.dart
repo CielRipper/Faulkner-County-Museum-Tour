@@ -2,11 +2,12 @@ import 'package:faulkner_county_museum_tour/objects/room.dart';
 import 'package:faulkner_county_museum_tour/storage.dart';
 
 class Artifact{
-  Artifact({required this.name, required this.description, required this.room});
+  Artifact({required this.name, required this.description, required this.room}): ref = null;
 
   final String name;
   final String description;
   String room;
+  int? ref;
 
   void moveTo(String newRoomID){
     removeFrom(room);
