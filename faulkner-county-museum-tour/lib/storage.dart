@@ -79,13 +79,18 @@ class Data{
   }
 
   void assignReference(Artifact artifact, int ref){
+    if(artifactsByRef.containsKey(ref)){
+      removeReference(ref: ref);
+    }
     artifactsByRef[ref] = artifact;
   }
   void removeReference({Artifact? artifact, int? ref}){
     if(artifact != null && artifactsByRef.containsKey(artifact.ref)){
+      artifact.ref = null;
       artifactsByRef.remove(artifact.ref);
     }
     else if(ref != null && artifactsByRef.containsKey(ref)){
+      artifactsByRef[ref]!.ref = null;
       artifactsByRef.remove(ref);
     }
   }
