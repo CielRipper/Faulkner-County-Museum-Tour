@@ -6,9 +6,10 @@ class Storage{
 }
 
 class Data{
-  Data() : artifacts={}, rooms={};
+  Data() : artifacts={}, rooms={}, artifactsByRef={};
 
   Map<String, Artifact> artifacts;
+  Map<int, Artifact> artifactsByRef;
   Map<String, Room> rooms;
 
   Room? createRoom(String name){
@@ -65,6 +66,33 @@ class Data{
     }
     else{
       return false;
+    }
+  }
+
+  Artifact? getArtifactByRef(int ref){
+    if(artifactsByRef.containsKey(ref)){
+      return artifactsByRef[ref];
+    }
+    else{
+      return null;
+    }
+  }
+
+  void assignReference(Artifact artifact, int ref){
+    if(artifactsByRef.containsKey(ref)){
+      removeReference(ref: ref);
+    }
+    artifactsByRef[ref] = artifact;
+    artifact.ref = ref;
+  }
+  void removeReference({Artifact? artifact, int? ref}){
+    if(artifact != null && artifactsByRef.containsKey(artifact.ref)){
+      artifactsByRef.remove(artifact.ref);
+      artifact.ref = null;
+    }
+    else if(ref != null && artifactsByRef.containsKey(ref)){
+      artifactsByRef[ref]!.ref = null;
+      artifactsByRef.remove(ref);
     }
   }
 
