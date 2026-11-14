@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/loginScreen.dart';
+import 'pages/introScreen.dart';
 import 'storage.dart';
 import 'theme.dart';
 
@@ -41,8 +41,7 @@ class MuseumTourApp extends StatelessWidget {
     return MaterialApp(
       title: 'Faulkner County Museum Tour',
       theme: buildMuseumTheme(),
-      // Temporary: start on the sign-in placeholder to check it.
-      home: const LoginScreen(),
+      home: const IntroScreen(),
     );
   }
 }
