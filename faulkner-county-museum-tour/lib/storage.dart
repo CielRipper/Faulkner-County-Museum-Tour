@@ -1,3 +1,4 @@
+import 'package:faulkner_county_museum_tour/objects/account.dart';
 import 'package:faulkner_county_museum_tour/objects/artifact.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 
@@ -6,11 +7,14 @@ class Storage{
 }
 
 class Data{
-  Data() : artifacts={}, rooms={}, artifactsByRef={};
+  Data() : artifacts={}, rooms={}, artifactsByRef={}, accounts={}, loggedIn = false;
 
   Map<String, Artifact> artifacts;
   Map<int, Artifact> artifactsByRef;
   Map<String, Room> rooms;
+  Map<String, Account> accounts;
+  bool loggedIn;
+  String? currentUserID;
 
   Room? createRoom(String name){
     if(rooms.containsKey(name)){
