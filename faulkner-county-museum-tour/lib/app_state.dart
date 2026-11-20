@@ -37,10 +37,11 @@ class ApplicationState extends ChangeNotifier{
 
   Future<void> init() async {
     try {
+
+      //FirebaseUIAuth.configureProviders([EmailAuthProvider()]);
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      FirebaseUIAuth.configureProviders([EmailAuthProvider()]);
 
       _authSubscription = FirebaseAuth.instance.userChanges().listen(
         (user) {
@@ -109,6 +110,8 @@ class ApplicationState extends ChangeNotifier{
                 Storage.data.artifacts = tempArtifacts;
                 Storage.data.artifactsByRef = tempArtifactsByRef;
                 Storage.data.rooms = tempRooms;
+
+                notifyListeners();
 
                 if(callback != null) callback!();
               } catch (error, stackTrace) {

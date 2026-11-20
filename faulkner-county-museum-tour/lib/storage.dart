@@ -6,6 +6,8 @@ import 'package:faulkner_county_museum_tour/objects/room.dart';
 class Storage{
   static Data data = Data();
   static ApplicationState? appState;
+
+  Storage(){}
 }
 
 class Data{
@@ -106,6 +108,7 @@ class Data{
   void dumpTestData(){
     rooms = {};
     artifacts = {};
+    print("dumped data!");
     createArtifact("Painting", "Painted with oil and acrylic", "Foyer");
     createArtifact("Painting 2", "Painted with tempera", "Foyer");
     createArtifact("Model Train", "Diorama of figures and landscape", "Train Room");

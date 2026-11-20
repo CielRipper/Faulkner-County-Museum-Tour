@@ -16,7 +16,6 @@ class RoomScreen extends StatelessWidget {
     final List<Room> rooms = Storage.data.rooms.values
         .where((room) => room.name != 'Unassigned')
         .toList();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Faulkner County Museum')
