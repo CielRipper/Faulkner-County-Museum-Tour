@@ -1,4 +1,6 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
@@ -12,6 +14,7 @@ class RoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<ApplicationState>();
     /// Rooms come from Jack's Storage. "Unassigned" is a backend holding room for artifacts with no room, so visitors don't see it.
     final List<Room> rooms = Storage.data.rooms.values
         .where((room) => room.name != 'Unassigned')

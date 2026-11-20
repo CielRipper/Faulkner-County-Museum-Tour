@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faulkner_county_museum_tour/objects/account.dart';
 
-import 'firebase_options.dart';
 import 'storage.dart';
 
 
@@ -39,10 +38,6 @@ class ApplicationState extends ChangeNotifier{
     try {
 
       //FirebaseUIAuth.configureProviders([EmailAuthProvider()]);
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-
       _authSubscription = FirebaseAuth.instance.userChanges().listen(
         (user) {
           _loggedIn = user != null;
@@ -153,4 +148,3 @@ class ApplicationState extends ChangeNotifier{
     notifyListeners();
   }
 }
-

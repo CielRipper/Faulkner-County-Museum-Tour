@@ -1,4 +1,6 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
@@ -13,6 +15,8 @@ class ArtifactScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<ApplicationState>();
+
     /// Room only stores artifact names, so get the full artifacts from Storage.
     final artifacts = Storage.data.artifactsOfRoom(room.name);
 
@@ -31,7 +35,10 @@ class ArtifactScreen extends StatelessWidget {
             child: ListTile(
               leading: const MuseumImage(width: 40, height: 40, iconSize: 24),
               title: Text(artifact.name),
-              trailing: const Icon(Icons.chevron_right, color: MuseumColors.green),
+              trailing: const Icon(
+                Icons.chevron_right,
+                color: MuseumColors.green,
+              ),
               onTap: () {
                 showArtifactPopup(context, artifact);
               },
