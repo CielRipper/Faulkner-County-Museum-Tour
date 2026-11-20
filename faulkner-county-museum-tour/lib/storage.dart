@@ -1,9 +1,11 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
 import 'package:faulkner_county_museum_tour/objects/account.dart';
 import 'package:faulkner_county_museum_tour/objects/artifact.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 
 class Storage{
   static Data data = Data();
+  static ApplicationState? appState;
 }
 
 class Data{
@@ -37,6 +39,7 @@ class Data{
       createRoom("Unassigned");
     }
     rooms[room ?? "Unassigned"]!.addArtifact(name);
+    Storage.appState!.writeArtifact(artifacts[name]!);
     return artifacts[name];
   }
 

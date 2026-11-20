@@ -1,4 +1,6 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'pages/roomScreen.dart';
 import 'storage.dart';
 import 'theme.dart';
@@ -14,10 +16,19 @@ class MuseumTourApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Faulkner County Museum Tour',
-      theme: buildMuseumTheme(),
-      home: const RoomScreen(),
+    return ChangeNotifierProvider(
+      lazy: false,
+      create: (_) {
+        final appState = ApplicationState();
+        Storage.appState = appState;
+        return appState;
+      },
+      child: MaterialApp(
+        title: 'Faulkner County Museum Tour',
+        theme: buildMuseumTheme(),
+        home: const RoomScreen(),
+      ),
     );
+     
   }
 }

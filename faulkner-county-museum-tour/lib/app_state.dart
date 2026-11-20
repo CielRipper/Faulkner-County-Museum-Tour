@@ -125,6 +125,19 @@ class ApplicationState extends ChangeNotifier{
 
   }
 
+  Future<void> writeArtifact(Artifact artifact) async {
+    final roomDoc = FirebaseFirestore.instance.collection('rooms').doc(artifact.room);
+    roomDoc.set({
+      'artifacts': [
+        <String, dynamic>{
+          'description' : artifact.description,
+          'name' : artifact.name,
+          'reference' : artifact.ref ?? -1,
+        } 
+      ]
+    }, SetOptions(merge: true));
+  }
+
 
   void _reportError(String source, Object error, StackTrace stackTrace) {
     if (_disposed) return;
