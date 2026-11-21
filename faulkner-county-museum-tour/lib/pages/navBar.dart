@@ -22,7 +22,14 @@ class _NavBarState extends State<NavBar> {
     // Pick the starting screen for the selected tab
     Widget startScreen;
     if (selectedIndex == 0) {
-      startScreen = const IntroScreen();
+      startScreen = IntroScreen(
+        // "Continue as Guest" switches to the Keypad tab (index 2)
+        onGuestPressed: () {
+          setState(() {
+            selectedIndex = 2;
+          });
+        },
+      );
     } else if (selectedIndex == 1) {
       startScreen = const RoomScreen();
     } else {

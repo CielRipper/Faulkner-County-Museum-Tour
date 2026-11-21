@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:faulkner_county_museum_tour/pages/keypadScreen.dart';
 import 'package:faulkner_county_museum_tour/pages/loginScreen.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
 
 /// First screen: explains the app and lets visitors continue as a guest
 /// or museum staff sign in as a moderator.
 class IntroScreen extends StatelessWidget {
-  const IntroScreen({super.key});
+  const IntroScreen({super.key, required this.onGuestPressed});
+
+  /// Runs when "Continue as Guest" is tapped.
+  /// NavBar uses this to switch to the Keypad tab.
+  final VoidCallback onGuestPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +82,7 @@ class IntroScreen extends StatelessWidget {
                       backgroundColor: MuseumColors.green,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const KeypadScreen()),
-                    ),
+                    onPressed: onGuestPressed,
                     icon: const Icon(Icons.person_outline),
                     label: const Text('Continue as Guest'),
                   ),
