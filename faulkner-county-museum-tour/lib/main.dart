@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/introScreen.dart';
+import 'pages/navBar.dart';
 import 'storage.dart';
 import 'theme.dart';
 
@@ -41,7 +41,8 @@ class MuseumTourApp extends StatelessWidget {
     return MaterialApp(
       title: 'Faulkner County Museum Tour',
       theme: buildMuseumTheme(),
-      home: const IntroScreen(),
+      // NavBar holds the Info, Rooms, and Keypad tabs, so the bar is always showing
+      home: const NavBar(),
     );
   }
 }
