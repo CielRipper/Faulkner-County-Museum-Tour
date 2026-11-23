@@ -38,7 +38,15 @@ class _NavBarState extends State<NavBar> {
     } else if (selectedIndex == 1) {
       startScreen = const RoomScreen();
     } else {
-      startScreen = const KeypadScreen();
+      startScreen = KeypadScreen(
+        // A found artifact highlights the Rooms tab (index 1).
+        // tapCount stays the same so the artifact stays open.
+        onArtifactFound: () {
+          setState(() {
+            selectedIndex = 1;
+          });
+        },
+      );
     }
 
     return Scaffold(
