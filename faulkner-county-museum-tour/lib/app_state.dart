@@ -125,15 +125,37 @@ class ApplicationState extends ChangeNotifier{
 
   Future<void> writeArtifact(Artifact artifact) async {
     final roomDoc = FirebaseFirestore.instance.collection('rooms').doc(artifact.room);
-    await roomDoc.set({
-      'artifacts': [
-        <String, dynamic>{
-          'description' : artifact.description,
-          'name' : artifact.name,
-          'reference' : artifact.ref ?? -1,
-        } 
-      ]
-    }, SetOptions(merge: true));
+
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      final snapshot = await transaction.get(roomDoc);
+      final existing = snapshot.data()?['artifacts'];
+      final artifacts = existing is Iterable
+          ? List<Map<String, dynamic>>.from(
+              existing.map((item) => Map<String, dynamic>.from(item as Map)),
+            )
+          : <Map<String, dynamic>>[];
+
+      final updatedArtifact = <String, dynamic>{
+        'description': artifact.description,
+        'name': artifact.name,
+        'reference': artifact.ref ?? -1,
+      };
+
+      final existingIndex = artifacts.indexWhere(
+        (item) => item['name'] == artifact.name,
+      );
+      if (existingIndex == -1) {
+        artifacts.add(updatedArtifact);
+      } else {
+        artifacts[existingIndex] = updatedArtifact;
+      }
+
+      transaction.set(
+        roomDoc,
+        {'artifacts': artifacts},
+        SetOptions(merge: true),
+      );
+    });
   }
 
 
