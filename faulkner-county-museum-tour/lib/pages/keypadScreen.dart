@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:faulkner_county_museum_tour/pages/artifactScreen.dart';
-import 'package:faulkner_county_museum_tour/pages/roomScreen.dart';
 import 'package:faulkner_county_museum_tour/storage.dart';
 import 'package:faulkner_county_museum_tour/theme.dart';
 import 'package:faulkner_county_museum_tour/widgets/artifactPopup.dart';
@@ -67,18 +66,7 @@ class _KeypadScreenState extends State<KeypadScreen> {
     final text = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Exhibit Number'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.meeting_room_outlined),
-            tooltip: 'Browse rooms',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const RoomScreen()),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Find an Exhibit')),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -134,12 +122,6 @@ class _KeypadScreenState extends State<KeypadScreen> {
                         filled: true,
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 24),
-                  // TEST ONLY: remove once real exhibit numbers come from the museum.
-                  const Text(
-                    'Test numbers: 101, 102, 201, 301, 302, 303',
-                    style: TextStyle(color: MuseumColors.muted),
                   ),
                 ],
               ),
