@@ -17,6 +17,10 @@ class _NavBarState extends State<NavBar> {
   // Starts at 0 so the intro screen is the first thing you see
   int selectedIndex = 0;
 
+  // Counts every tab tap. Used as the Navigator's key below,
+  // so each tap starts the tab over at its first screen.
+  int tapCount = 0;
+
   @override
   Widget build(BuildContext context) {
     // Pick the starting screen for the selected tab
@@ -27,6 +31,7 @@ class _NavBarState extends State<NavBar> {
         onGuestPressed: () {
           setState(() {
             selectedIndex = 2;
+            tapCount = tapCount + 1;
           });
         },
       );
@@ -40,9 +45,9 @@ class _NavBarState extends State<NavBar> {
       // Each tab gets its own Navigator so screens opened inside it
       // (like a room's artifacts) stay above the nav bar.
       body: Navigator(
-        // A different key per tab tells Flutter to start a fresh
-        // Navigator when you switch tabs.
-        key: ValueKey(selectedIndex),
+        // A different key tells Flutter to start a fresh Navigator.
+        // tapCount changes on every tap, so every tap starts fresh.
+        key: ValueKey(tapCount),
         onGenerateRoute: (settings) {
           return MaterialPageRoute(builder: (context) => startScreen);
         },
@@ -52,6 +57,7 @@ class _NavBarState extends State<NavBar> {
         onDestinationSelected: (int index) {
           setState(() {
             selectedIndex = index;
+            tapCount = tapCount + 1;
           });
         },
         destinations: const [
