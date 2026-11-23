@@ -1,16 +1,24 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
+import 'package:faulkner_county_museum_tour/objects/account.dart';
 import 'package:faulkner_county_museum_tour/objects/artifact.dart';
 import 'package:faulkner_county_museum_tour/objects/room.dart';
 
 class Storage{
   static Data data = Data();
+  static ApplicationState? appState;
+
+  Storage(){}
 }
 
 class Data{
-  Data() : artifacts={}, rooms={}, artifactsByRef={};
+  Data() : artifacts={}, rooms={}, artifactsByRef={}, accounts={}, loggedIn = false;
 
   Map<String, Artifact> artifacts;
   Map<int, Artifact> artifactsByRef;
   Map<String, Room> rooms;
+  Map<String, Account> accounts;
+  bool loggedIn;
+  String? currentUserID;
 
   Room? createRoom(String name){
     if(rooms.containsKey(name)){
@@ -33,6 +41,7 @@ class Data{
       createRoom("Unassigned");
     }
     rooms[room ?? "Unassigned"]!.addArtifact(name);
+    Storage.appState!.writeArtifact(artifacts[name]!);
     return artifacts[name];
   }
 
@@ -99,6 +108,7 @@ class Data{
   void dumpTestData(){
     rooms = {};
     artifacts = {};
+    print("dumped data!");
     createArtifact("Painting", "Painted with oil and acrylic", "Foyer");
     createArtifact("Painting 2", "Painted with tempera", "Foyer");
     createArtifact("Model Train", "Diorama of figures and landscape", "Train Room");

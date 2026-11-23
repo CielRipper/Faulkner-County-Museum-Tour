@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "284859017644",
+    "project_id": "faulkner-county-museum-tour",
+    "storage_bucket": "faulkner-county-museum-tour.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284859017644:android:4647388f9b7be2097d7209",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsQeoWhKpqOUDX5Ob3xgxsOFhsVCUtqPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
