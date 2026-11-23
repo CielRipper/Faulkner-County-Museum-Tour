@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Colors pulled from faulknerhistory.org and the museum's Facebook page.
 class MuseumColors {
@@ -12,10 +13,10 @@ class MuseumColors {
   static const border = Color(0xFFD8CCB8); // thin card borders
 }
 
-/// Serif headings like the website's titles.
-/// 'serif' uses the phone's built-in serif font.
-const String headingFont = 'serif';
-
+/// Fonts: Arvo (a slab serif like the Historical Society website's headings)
+/// for headings, and Lora (a book-style serif) for body text.
+/// Sizes are a bit larger than Flutter's defaults so they're easier to read
+/// in the museum (issue #20).
 ThemeData buildMuseumTheme() {
   final base = ThemeData(
     useMaterial3: true,
@@ -28,30 +29,36 @@ ThemeData buildMuseumTheme() {
     scaffoldBackgroundColor: MuseumColors.linen,
   );
 
-  final text = base.textTheme
+  // Lora for everything, then Arvo for the headings and titles.
+  final body = GoogleFonts.loraTextTheme(base.textTheme)
       .apply(bodyColor: MuseumColors.ink, displayColor: MuseumColors.ink);
 
+  TextStyle? heading(TextStyle? style, double size) => style == null
+      ? null
+      : GoogleFonts.arvo(
+          textStyle: style,
+          fontSize: size,
+          fontWeight: FontWeight.bold,
+        );
+
   return base.copyWith(
-    textTheme: text.copyWith(
-      headlineSmall: text.headlineSmall?.copyWith(
-        fontFamily: headingFont,
-        fontWeight: FontWeight.bold,
-      ),
-      titleLarge: text.titleLarge?.copyWith(
-        fontFamily: headingFont,
-        fontWeight: FontWeight.bold,
-      ),
-      titleMedium: text.titleMedium?.copyWith(
-        fontFamily: headingFont,
-        fontWeight: FontWeight.bold,
-      ),
+    textTheme: body.copyWith(
+      // Headings (Arvo)
+      headlineSmall: heading(body.headlineSmall, 26),
+      titleLarge: heading(body.titleLarge, 22),
+      titleMedium: heading(body.titleMedium, 18),
+      // Body text (Lora), a little larger than the defaults
+      titleSmall: body.titleSmall?.copyWith(fontSize: 16),
+      bodyLarge: body.bodyLarge?.copyWith(fontSize: 18),
+      bodyMedium: body.bodyMedium?.copyWith(fontSize: 16),
+      bodySmall: body.bodySmall?.copyWith(fontSize: 14),
+      labelLarge: body.labelLarge?.copyWith(fontSize: 16),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: MuseumColors.maroon,
       foregroundColor: Colors.white,
       elevation: 0,
-      titleTextStyle: TextStyle(
-        fontFamily: headingFont,
+      titleTextStyle: GoogleFonts.arvo(
         fontSize: 22,
         fontWeight: FontWeight.bold,
         color: Colors.white,
@@ -90,7 +97,8 @@ ThemeData buildMuseumTheme() {
       }),
       labelTextStyle: WidgetStateProperty.resolveWith((states) {
         final selected = states.contains(WidgetState.selected);
-        return TextStyle(
+        return GoogleFonts.lora(
+          fontSize: 13,
           color: selected ? MuseumColors.maroon : MuseumColors.muted,
           fontWeight: selected ? FontWeight.bold : FontWeight.normal,
         );
