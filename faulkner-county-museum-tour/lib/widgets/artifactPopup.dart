@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:faulkner_county_museum_tour/objects/artifact.dart';
 import 'package:faulkner_county_museum_tour/pages/artifactScreen.dart';
 import 'package:faulkner_county_museum_tour/storage.dart';
+import 'package:faulkner_county_museum_tour/theme.dart';
 import 'package:faulkner_county_museum_tour/widgets/museumWidgets.dart';
 
 /// Popup that shows an artifact's pictures and description.
@@ -28,7 +29,16 @@ void showArtifactPopup(BuildContext context, Artifact artifact) {
     context: context,
     builder: (dialogContext) {
       return AlertDialog(
-        title: Text(artifact.name),
+        // artifact name on the left, X to close on the right
+        title: Row(
+          children: [
+            Expanded(child: Text(artifact.name)),
+            IconButton(
+              icon: const Icon(Icons.close, size: 32, color: Colors.red),
+              onPressed: () => Navigator.pop(dialogContext),
+            ),
+          ],
+        ),
         // scrolls if the description is long
         content: SingleChildScrollView(
           child: Column(
@@ -43,12 +53,9 @@ void showArtifactPopup(BuildContext context, Artifact artifact) {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Close'),
-          ),
           if (hasNext || nextRoom.isNotEmpty)
-            TextButton(
+            IconButton(
+              icon: const Icon(Icons.arrow_forward, size: 32, color: MuseumColors.green),
               onPressed: () {
                 Navigator.pop(dialogContext);
                 // use the screen's context here, the popup's is gone once it closes
@@ -58,7 +65,6 @@ void showArtifactPopup(BuildContext context, Artifact artifact) {
                   showRoomChangePopup(context, nextRoom);
                 }
               },
-              child: const Text('Next'),
             ),
         ],
       );
@@ -74,7 +80,8 @@ void showRoomChangePopup(BuildContext context, String roomName) {
       return AlertDialog(
         title: Text('Entering $roomName'),
         actions: [
-          TextButton(
+          IconButton(
+            icon: const Icon(Icons.arrow_forward, size: 32, color: MuseumColors.green),
             onPressed: () {
               Navigator.pop(dialogContext);
 
@@ -90,7 +97,6 @@ void showRoomChangePopup(BuildContext context, String roomName) {
               final firstArtifact = Storage.data.artifactsOfRoom(roomName).first;
               showArtifactPopup(navigator.context, firstArtifact);
             },
-            child: const Text('Continue'),
           ),
         ],
       );

@@ -8,7 +8,11 @@ import 'package:faulkner_county_museum_tour/widgets/artifactPopup.dart';
 /// Guests type the number on an exhibit sign to jump to that artifact.
 /// Numbers come from Jack's reference system (Storage.getArtifactByRef).
 class KeypadScreen extends StatefulWidget {
-  const KeypadScreen({super.key});
+  const KeypadScreen({super.key, required this.onArtifactFound});
+
+  /// Runs when a typed number matches an artifact.
+  /// NavBar uses this to highlight the Rooms tab.
+  final VoidCallback onArtifactFound;
 
   @override
   State<KeypadScreen> createState() => _KeypadScreenState();
@@ -53,6 +57,9 @@ class _KeypadScreenState extends State<KeypadScreen> {
       MaterialPageRoute(builder: (_) => ArtifactScreen(room: room)),
     );
     showArtifactPopup(navigator.context, artifact);
+
+    // Tell NavBar an artifact was opened so it highlights the Rooms tab
+    widget.onArtifactFound();
   }
 
   @override
