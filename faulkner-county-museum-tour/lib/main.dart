@@ -1,48 +1,31 @@
+import 'package:faulkner_county_museum_tour/app_state.dart';
+import 'package:faulkner_county_museum_tour/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'pages/navBar.dart';
 import 'storage.dart';
 import 'theme.dart';
 
-void main() {
-  loadTestData();
-  runApp(const MuseumTourApp());
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-/// Fake rooms, artifacts, and exhibit numbers until Firebase is set up.
-/// Also used by the widget tests so they start with the same data.
-void loadTestData() {
-  Storage.data.dumpTestData();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // dumpTestData doesn't clear old exhibit numbers, so start fresh.
-  Storage.data.artifactsByRef = {};
-
-  // Test exhibit numbers for the keypad (room number + item number).
-  const testNumbers = {
-    'Painting': 101,
-    'Painting 2': 102,
-    'Model Train': 201,
-    'Student Desk': 301,
-    'Student Chair': 302,
-    'Chalkboard': 303,
-  };
-  testNumbers.forEach((name, number) {
-    final artifact = Storage.data.artifacts[name];
-    if (artifact != null) {
-      Storage.data.assignReference(artifact, number);
-    }
-  });
-}
-
-class MuseumTourApp extends StatelessWidget {
-  const MuseumTourApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(ChangeNotifierProvider(
+    lazy: false,
+    create: (context) {
+      final appState = ApplicationState();
+      Storage.appState = appState;
+      return appState;
+    },
+    builder: (context, child) => MaterialApp(
       title: 'Faulkner County Museum Tour',
       theme: buildMuseumTheme(),
       // NavBar holds the Info, Rooms, and Keypad tabs, so the bar is always showing
       home: const NavBar(),
-    );
-  }
+    ),
+  ));
 }
